@@ -1,0 +1,22 @@
+{
+  "name": "sline",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "source": "src/index.tsx",
+  "scripts": {
+    "type": "tsc --noEmit",
+    "dev": "microbundle --name Sline --jsx React.createElement --jsxFragment React.Fragment --jsxImportSource react --globals react/jsx-runtime=jsx  --define process.env.NODE_ENV=development --format umd --external none watch",
+    "build": "microbundle --name Sline --jsx React.createElement --jsxFragment React.Fragment --jsxImportSource react --globals react/jsx-runtime=jsx  --define process.env.NODE_ENV=production --format umd --external none"
+  },
+  "dependencies": {
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1"
+  },
+  "devDependencies": {
+    "@types/react": "^18.3.3",
+    "@types/react-dom": "^18.3.0",
+    "microbundle": "^0.15.1",
+    "typescript": "^5.4.5"
+  }
+}
