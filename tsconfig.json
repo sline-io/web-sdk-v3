@@ -16,7 +16,8 @@
     "noEmit": true,
     "jsx": "react-jsx",
     "jsxFactory": "",
-    "jsxFragmentFactory": ""
+    "jsxFragmentFactory": "",
+    "plugins": [{ "name": "typescript-plugin-css-modules" }]
   },
-  "include": ["src"]
+  "include": ["src", "node_modules/microbundle/index.d.ts"]
 }
