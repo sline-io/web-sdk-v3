@@ -11,10 +11,9 @@
   </body>
 
   <script type="text/javascript">
-    Sline.addCheckoutBadge("container1", 1, 1);
-
-    Sline.addCheckoutBadge("container2", 2, 1);
-
-    Sline.addCheckoutBadge("container1", 3, 1);
+    Sline.initialize({
+      clientId: "{{ clientId }}",
+      clientSecret: "{{ clientSecret }}",
+    });
   </script>
 </html>
