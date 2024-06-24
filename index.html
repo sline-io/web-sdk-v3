@@ -6,14 +6,17 @@
   </head>
 
   <body>
-    <div id="container1"></div>
-    <div id="container2"></div>
+    <div id="container"></div>
   </body>
 
   <script type="text/javascript">
     Sline.initialize({
       clientId: "{{ clientId }}",
       clientSecret: "{{ clientSecret }}",
+    });
+
+    Sline.addCheckoutBadge("container", {
+      lineItems: { name: "Iphone", unit_price: 99900, rent: true },
     });
   </script>
 </html>

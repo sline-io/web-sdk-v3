@@ -1,7 +1,9 @@
 import ReactDOM from "react-dom/client";
-import { CheckoutBadge } from "./components";
+import { CheckoutBadge, CheckoutBadgeProps } from "./components";
 import React from "react";
 import { initializeApiClient } from "services/api/client";
+
+let initialized = false;
 
 type InitializeOptions = {
   clientId: string;
@@ -15,6 +17,7 @@ export const initialize = ({
   test = false,
 }: InitializeOptions) => {
   initializeApiClient({ clientId, clientSecret, test });
+  initialized = true;
 };
 
 const rootByContainerId: Record<string, ReactDOM.Root> = {};
@@ -35,12 +38,20 @@ const getOrCreateRoot = (containerId: string) => {
   return root;
 };
 
-export const addCheckoutBadge = (containerId: string) => {
+export const addCheckoutBadge = (
+  containerId: string,
+  props: CheckoutBadgeProps
+) => {
+  if (!initialized)
+    throw Error(
+      "You must initialize the SDK before adding a checkout badge in your page."
+    );
+
   const root = getOrCreateRoot(containerId);
 
   root.render(
     <React.StrictMode>
-      <CheckoutBadge />
+      <CheckoutBadge {...props} />
     </React.StrictMode>
   );
 };
