@@ -47,38 +47,47 @@ const createLineItemsPlans = (
     }
   });
 
-const buildCheckoutPlanByDuration = (
-  lineItemsWithPlans: LineItemWithPlans[]
-) => {
-  const checkoutPlanByDuration: Record<number, CheckoutPlan> = {};
+const buildCheckoutPlans = (lineItemsWithPlans: LineItemWithPlans[]) => {
+  const checkoutPlans: CheckoutPlan[] = [];
 
   lineItemsWithPlans.forEach((lineItemWithPlans) => {
     lineItemWithPlans.plans.forEach((lineItemPlan) => {
-      if (!(lineItemPlan.duration in checkoutPlanByDuration)) {
-        checkoutPlanByDuration[lineItemPlan.duration] = {
+      if (
+        !checkoutPlans.some(
+          ({ duration }) => duration === lineItemPlan.duration
+        )
+      ) {
+        checkoutPlans.push({
+          duration: lineItemPlan.duration,
           firstInstalmentWithTax: 0,
           otherInstalmentWithTax: 0,
-        };
+        });
       }
 
-      checkoutPlanByDuration[lineItemPlan.duration].firstInstalmentWithTax +=
+      const checkoutPlan = checkoutPlans.find(
+        ({ duration }) => duration === lineItemPlan.duration
+      );
+
+      if (!checkoutPlan) throw Error("Checkout plan should be defined.");
+
+      checkoutPlan.firstInstalmentWithTax +=
         lineItemPlan.first_instalment_with_tax;
-      checkoutPlanByDuration[lineItemPlan.duration].otherInstalmentWithTax +=
+      checkoutPlan.otherInstalmentWithTax +=
         lineItemPlan.other_instalment_with_tax;
     });
   });
 
-  return checkoutPlanByDuration;
+  return checkoutPlans;
 };
 
 type CheckoutPlan = {
+  duration: number;
   firstInstalmentWithTax: number;
   otherInstalmentWithTax: number;
 };
 
-export const useCheckoutPlanByDuration = (lineItems: LineItem[]) => {
-  const [checkoutPlanByDuration, setCheckoutPlanByDuration] =
-    useState<Record<number, CheckoutPlan>>();
+export const useCheckoutPlans = (lineItems: LineItem[]) => {
+  const [checkoutPlans, setCheckoutPlans] = useState<CheckoutPlan[]>();
 
   useEffect(() => {
     if (
@@ -86,8 +95,8 @@ export const useCheckoutPlanByDuration = (lineItems: LineItem[]) => {
         (lineItem) => hashLineItem(lineItem) in lineItemWithPlansByHash
       )
     ) {
-      setCheckoutPlanByDuration(
-        buildCheckoutPlanByDuration(
+      setCheckoutPlans(
+        buildCheckoutPlans(
           lineItems.map(
             (lineItem) => lineItemWithPlansByHash[hashLineItem(lineItem)]
           )
@@ -97,9 +106,9 @@ export const useCheckoutPlanByDuration = (lineItems: LineItem[]) => {
     }
 
     createLineItemsPlans(lineItems).then((lineItemsWithPlans) =>
-      setCheckoutPlanByDuration(buildCheckoutPlanByDuration(lineItemsWithPlans))
+      setCheckoutPlans(buildCheckoutPlans(lineItemsWithPlans))
     );
   }, [lineItems]);
 
-  return checkoutPlanByDuration;
+  return checkoutPlans;
 };

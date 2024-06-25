@@ -1,20 +1,31 @@
-import React, { useState } from "react";
+import React, { useMemo, useState } from "react";
 import styles from "./CheckoutBadge.module.css";
 import { LineItem } from "types";
-import { useCheckoutPlanByDuration } from "hooks";
+import { useCheckoutPlans } from "hooks";
 import { SlineLogo } from "../SlineLogo";
 import { Skeleton } from "../Skeleton";
 import { Chip } from "../Chip";
+import { formatPrice } from "utils";
 
 export interface Props {
   lineItems: LineItem[];
 }
 
 export const CheckoutBadge: React.FC<Props> = ({ lineItems }) => {
-  const checkoutPlanByDuration = useCheckoutPlanByDuration(lineItems);
+  const checkoutPlans = useCheckoutPlans(lineItems);
   const [selectedDuration, setSelectedDuration] = useState<number>();
 
-  if (!checkoutPlanByDuration)
+  const selectedCheckoutPlan = useMemo(() => {
+    if (!checkoutPlans) return undefined;
+
+    return checkoutPlans.find(
+      ({ duration }, index) =>
+        (selectedDuration === undefined && index === 0) ||
+        duration === selectedDuration
+    );
+  }, [checkoutPlans]);
+
+  if (!checkoutPlans)
     return (
       <div className={styles.badge}>
         <div className={styles.top_bar}>
@@ -32,24 +43,40 @@ export const CheckoutBadge: React.FC<Props> = ({ lineItems }) => {
       </div>
     );
 
+  if (!selectedCheckoutPlan) throw Error("No checkout plans.");
+
+  console.log(formatPrice(selectedCheckoutPlan.firstInstalmentWithTax));
+
   return (
     <div className={styles.badge}>
       <div className={styles.top_bar}>
         <SlineLogo />
 
-        {Object.keys(checkoutPlanByDuration).map((duration, index) => (
+        {checkoutPlans.map(({ duration }, index) => (
           <Chip
-            value={duration}
-            label={duration === "-1" ? "Sans engagement" : `${duration} mois`}
+            key={String(duration)}
+            value={String(duration)}
+            label={duration === -1 ? "Sans engagement" : `${duration} mois`}
             checked={
               (selectedDuration === undefined && index === 0) ||
-              selectedDuration === Number(duration)
+              selectedDuration === duration
             }
-            onChange={(checked) =>
-              checked && setSelectedDuration(Number(duration))
-            }
+            onChange={(checked) => checked && setSelectedDuration(duration)}
           />
         ))}
+      </div>
+
+      <div className={styles.bottom_bar}>
+        <p
+          className={styles.price}
+          dangerouslySetInnerHTML={{
+            __html: `${formatPrice(
+              selectedCheckoutPlan.firstInstalmentWithTax
+            )} puis ${formatPrice(
+              selectedCheckoutPlan.otherInstalmentWithTax
+            )} par mois`,
+          }}
+        />
       </div>
     </div>
   );

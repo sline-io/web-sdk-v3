@@ -1,1 +1,1 @@
-export * from "./useCheckoutPlanByDuration";
+export * from "./useCheckoutPlans";
