@@ -1,0 +1,17 @@
+.chip {
+  border-radius: 4px;
+  height: 24px;
+}
+
+.chip[data-checked] {
+  background-color: #0c2a1a;
+  color: white;
+}
+
+.label {
+  height: 100%;
+  padding: 0 8px;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+}
