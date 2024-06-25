@@ -1,7 +1,7 @@
 import ReactDOM from "react-dom/client";
 import { CheckoutBadge, CheckoutBadgeProps } from "./components";
 import React from "react";
-import { initializeApiClient } from "services/api/client";
+import { initializeApiClient } from "services/api";
 
 let initialized = false;
 

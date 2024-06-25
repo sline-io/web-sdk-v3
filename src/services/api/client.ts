@@ -94,6 +94,11 @@ export const initializeApiClient = async ({
 
   await Promise.all(
     pendingRequests.map(async (request) => {
+      request.options.headers = {
+        ...request.options.headers,
+        Authorization: `Bearer ${accessToken}`,
+      };
+
       const response = await fetch(request.url, request.options);
       request.resolve(await response.json());
     })

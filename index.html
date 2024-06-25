@@ -6,17 +6,39 @@
   </head>
 
   <body>
-    <div id="container"></div>
+    <div id="container1"></div>
+    <div id="container2"></div>
   </body>
 
   <script type="text/javascript">
     Sline.initialize({
       clientId: "{{ clientId }}",
       clientSecret: "{{ clientSecret }}",
+      test: true,
     });
 
-    Sline.addCheckoutBadge("container", {
-      lineItems: { name: "Iphone", unit_price: 99900, rent: true },
+    Sline.addCheckoutBadge("container1", {
+      lineItems: [
+        {
+          name: "Iphone",
+          item_type: "physical",
+          unit_price: 99900,
+          quantity: 1,
+          rent: true,
+        },
+      ],
+    });
+
+    Sline.addCheckoutBadge("container2", {
+      lineItems: [
+        {
+          name: "Iphone",
+          item_type: "physical",
+          unit_price: 89900,
+          quantity: 3,
+          rent: true,
+        },
+      ],
     });
   </script>
 </html>
