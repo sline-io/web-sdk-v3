@@ -1,5 +1,5 @@
 import hash from "object-hash";
-import { LineItem, LineItemWithPlans } from "types";
+import { LineItem } from "types";
 
 export const hashLineItem = ({
   unit_price,

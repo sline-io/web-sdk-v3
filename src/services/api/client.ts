@@ -11,7 +11,7 @@ const pendingRequests: Request[] = [];
 
 export const apiClient = {
   get: async (path: string): Promise<unknown> =>
-    new Promise(async (resolve, reject) => {
+    new Promise((resolve, reject) => {
       const url = baseUrl + path;
       const options: RequestInit = {
         method: "GET",
@@ -23,16 +23,13 @@ export const apiClient = {
         return;
       }
 
-      try {
-        const response = await fetch(url, options);
-        resolve(await response.json());
-      } catch (e) {
-        reject(e);
-      }
+      fetch(url, options)
+        .then((response) => response.json().then(resolve).catch(reject))
+        .catch(reject);
     }),
 
   post: async (path: string, data: unknown): Promise<unknown> =>
-    new Promise(async (resolve, reject) => {
+    new Promise((resolve, reject) => {
       const url = baseUrl + path;
       const options: RequestInit = {
         method: "POST",
@@ -48,12 +45,9 @@ export const apiClient = {
         return;
       }
 
-      try {
-        const response = await fetch(url, options);
-        resolve(await response.json());
-      } catch (e) {
-        reject(e);
-      }
+      fetch(url, options)
+        .then((response) => response.json().then(resolve).catch(reject))
+        .catch(reject);
     }),
 };
 

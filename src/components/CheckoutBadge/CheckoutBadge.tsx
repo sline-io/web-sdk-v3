@@ -23,7 +23,7 @@ export const CheckoutBadge: React.FC<Props> = ({ lineItems }) => {
         (selectedDuration === undefined && index === 0) ||
         duration === selectedDuration
     );
-  }, [checkoutPlans]);
+  }, [checkoutPlans, selectedDuration]);
 
   if (!checkoutPlans)
     return (

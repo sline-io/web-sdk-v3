@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { apiClient, createPlans } from "services/api";
+import { createPlans } from "services/api";
 import { LineItem, LineItemWithPlans } from "types";
 import { hashLineItem } from "utils";
 
@@ -14,13 +14,14 @@ let handlePendingLineItemsWithPlansTimeout: number | undefined;
 const DEBOUNCE_DELAY = 500;
 
 const handlePendingLineItemsWithPlans = async () => {
-  const lineItemsWithPlans = await createPlans(
-    pendingLineItemsPlansRequest.flatMap(({ lineItems }) => lineItems)
+  const lineItems = pendingLineItemsPlansRequest.flatMap(
+    ({ lineItems }) => lineItems
   );
+  const lineItemsWithPlans = await createPlans(lineItems);
 
   lineItemsWithPlans.forEach(
-    (lineItemWithPlans) =>
-      (lineItemWithPlansByHash[hashLineItem(lineItemWithPlans)] =
+    (lineItemWithPlans, index) =>
+      (lineItemWithPlansByHash[hashLineItem(lineItems[index])] =
         lineItemWithPlans)
   );
 
@@ -105,9 +106,10 @@ export const useCheckoutPlans = (lineItems: LineItem[]) => {
       return;
     }
 
-    createLineItemsPlans(lineItems).then((lineItemsWithPlans) =>
-      setCheckoutPlans(buildCheckoutPlans(lineItemsWithPlans))
-    );
+    createLineItemsPlans(lineItems).then((lineItemsWithPlans) => {
+      console.log(lineItemsWithPlans);
+      setCheckoutPlans(buildCheckoutPlans(lineItemsWithPlans));
+    });
   }, [lineItems]);
 
   return checkoutPlans;
