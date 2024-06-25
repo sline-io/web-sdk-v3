@@ -32,6 +32,9 @@ const handlePendingLineItemsWithPlans = async () => {
       )
     );
   });
+
+  pendingLineItemsPlansRequest.splice(0, pendingLineItemsPlansRequest.length);
+  handlePendingLineItemsWithPlansTimeout = undefined;
 };
 
 const createLineItemsPlans = (
@@ -106,10 +109,9 @@ export const useCheckoutPlans = (lineItems: LineItem[]) => {
       return;
     }
 
-    createLineItemsPlans(lineItems).then((lineItemsWithPlans) => {
-      console.log(lineItemsWithPlans);
-      setCheckoutPlans(buildCheckoutPlans(lineItemsWithPlans));
-    });
+    createLineItemsPlans(lineItems).then((lineItemsWithPlans) =>
+      setCheckoutPlans(buildCheckoutPlans(lineItemsWithPlans))
+    );
   }, [lineItems]);
 
   return checkoutPlans;

@@ -97,4 +97,6 @@ export const initializeApiClient = async ({
       request.resolve(await response.json());
     })
   );
+
+  pendingRequests.splice(0, pendingRequests.length);
 };

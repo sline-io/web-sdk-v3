@@ -45,8 +45,6 @@ export const CheckoutBadge: React.FC<Props> = ({ lineItems }) => {
 
   if (!selectedCheckoutPlan) throw Error("No checkout plans.");
 
-  console.log(formatPrice(selectedCheckoutPlan.firstInstalmentWithTax));
-
   return (
     <div className={styles.badge}>
       <div className={styles.top_bar}>
