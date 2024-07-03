@@ -40,7 +40,7 @@ export const CheckoutBadge: React.FC<Props> = ({ lineItems }) => {
 
         <div className={styles.bottom_bar}>
           <Skeleton height={20} width={250} radius={4} />
-          <Skeleton height={24} width={50} radius={4} />
+          <Skeleton height={30} width={60} radius={4} />
         </div>
       </div>
     );

@@ -1,12 +1,46 @@
 .button {
   background-color: #0c2a1a;
   color: white;
+  font-weight: 600;
   border-radius: 4px;
-  padding: 4px 8px;
+  padding: 8px 12px;
   border: none;
   cursor: pointer;
+  position: relative;
 }
 
 .button[data-loading] {
   pointer-events: none;
+}
+
+.loading_overlay {
+  display: none;
+  position: absolute;
+  top: 4px;
+  bottom: 4px;
+  left: 4px;
+  right: 4px;
+  justify-content: center;
+  align-items: center;
+  background-color: #0c2a1a;
+}
+
+.button[data-loading] .loading_overlay {
+  display: flex;
+}
+
+.loader {
+  fill: white;
+  height: 100%;
+}
+
+@keyframes spin {
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.spinner {
+  transform-origin: center;
+  animation: spin 0.75s infinite linear;
 }
