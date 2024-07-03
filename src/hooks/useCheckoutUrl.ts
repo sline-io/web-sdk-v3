@@ -5,23 +5,37 @@ import { createSession, SessionCreateData } from "services/api";
 export const useCheckoutUrl = () => {
   const [loading, setLoading] = useState(false);
 
-  const buildSessionUrl = useCallback(async (data: SessionCreateData) => {
-    setLoading(true);
+  const buildSessionUrl = useCallback(
+    async ({
+      lineItems,
+      selectedDuration,
+    }: Pick<SessionCreateData, "lineItems" | "selectedDuration">) => {
+      setLoading(true);
 
-    try {
-      const session = await createSession(data);
+      try {
+        const { customer, shippingAddress, billingAddress } = config;
 
-      const baseUrl = config.test
-        ? "https://checkout.stg.sline.io"
-        : "https://subscribe.sline.io";
+        const session = await createSession({
+          lineItems,
+          selectedDuration,
+          customer,
+          shippingAddress,
+          billingAddress,
+        });
 
-      setLoading(false);
-      return `${baseUrl}/${session.id}`;
-    } catch (error) {
-      setLoading(false);
-      throw error;
-    }
-  }, []);
+        const baseUrl = config.test
+          ? "https://checkout.stg.sline.io"
+          : "https://subscribe.sline.io";
+
+        setLoading(false);
+        return `${baseUrl}/${session.id}`;
+      } catch (error) {
+        setLoading(false);
+        throw error;
+      }
+    },
+    []
+  );
 
   return { buildSessionUrl, loading };
 };

@@ -3,6 +3,7 @@ import { CheckoutBadge, CheckoutBadgeProps } from "./components";
 import React from "react";
 import { initializeApiClient } from "services/api";
 import config from "config";
+import { SessionAddress, SessionCustomer } from "types";
 
 type InitializeOptions = {
   clientId: string;
@@ -56,3 +57,19 @@ export const addCheckoutBadge = (
     </React.StrictMode>
   );
 };
+
+export const removeCheckoutBadge = (containerId: string) => {
+  const root = getOrCreateRoot(containerId);
+
+  root.unmount();
+};
+
+export const setCustomer = (customer: SessionCustomer | undefined) =>
+  (config.customer = customer);
+
+export const setShippingAddress = (
+  shippingAddress: SessionAddress | undefined
+) => (config.shippingAddress = shippingAddress);
+
+export const setBillingAddress = (billingAddress: SessionAddress | undefined) =>
+  (config.billingAddress = billingAddress);

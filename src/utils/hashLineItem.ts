@@ -1,5 +1,5 @@
 import hash from "object-hash";
-import { LineItem } from "types";
+import { SessionLineItem } from "types";
 
 export const hashLineItem = ({
   unit_price,
@@ -8,7 +8,7 @@ export const hashLineItem = ({
   product_value,
   coverage_configuration_code,
   pricing_configuration_code,
-}: LineItem) =>
+}: SessionLineItem) =>
   hash({
     unit_price,
     quantity,

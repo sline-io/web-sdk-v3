@@ -1,14 +1,25 @@
-import { LineItem, Session } from "types";
+import {
+  SessionLineItem,
+  Session,
+  SessionCustomer,
+  SessionAddress,
+} from "types";
 import { apiClient } from "./client";
 
 export interface SessionCreateData {
-  lineItems: LineItem[];
+  lineItems: SessionLineItem[];
   selectedDuration: number | undefined;
+  customer?: SessionCustomer;
+  shippingAddress?: SessionAddress;
+  billingAddress?: SessionAddress;
 }
 
 export const createSession = async ({
   lineItems,
   selectedDuration,
+  customer,
+  shippingAddress,
+  billingAddress,
 }: SessionCreateData) =>
   (
     (await apiClient.post(
@@ -16,6 +27,9 @@ export const createSession = async ({
       {
         line_items_attributes: lineItems,
         selected_duration: selectedDuration,
+        session_customer_attributes: customer,
+        shipping_address_attributes: shippingAddress,
+        billing_address_attributes: billingAddress,
       }
     )) as { session: Session }
   ).session;
