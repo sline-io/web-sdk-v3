@@ -1,4 +1,4 @@
-# 📦 Sline Web SDK V3
+# Sline Web SDK V3
 
 ## Commands
 
