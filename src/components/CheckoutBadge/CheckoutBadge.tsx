@@ -1,10 +1,11 @@
 import React, { useMemo, useState } from "react";
 import styles from "./CheckoutBadge.module.css";
 import { LineItem } from "types";
-import { useCheckoutPlans } from "hooks";
+import { useCheckoutPlans, useCheckoutUrl } from "hooks";
 import { SlineLogo } from "../SlineLogo";
 import { Skeleton } from "../Skeleton";
 import { Chip } from "../Chip";
+import { Button } from "../Button";
 import { formatPrice } from "utils";
 
 export interface Props {
@@ -14,6 +15,7 @@ export interface Props {
 export const CheckoutBadge: React.FC<Props> = ({ lineItems }) => {
   const checkoutPlans = useCheckoutPlans(lineItems);
   const [selectedDuration, setSelectedDuration] = useState<number>();
+  const { buildSessionUrl, loading } = useCheckoutUrl();
 
   const selectedCheckoutPlan = useMemo(() => {
     if (!checkoutPlans) return undefined;
@@ -38,7 +40,7 @@ export const CheckoutBadge: React.FC<Props> = ({ lineItems }) => {
 
         <div className={styles.bottom_bar}>
           <Skeleton height={20} width={250} radius={4} />
-          <Skeleton height={24} width={60} radius={4} />
+          <Skeleton height={24} width={50} radius={4} />
         </div>
       </div>
     );
@@ -75,6 +77,18 @@ export const CheckoutBadge: React.FC<Props> = ({ lineItems }) => {
             )} par mois`,
           }}
         />
+
+        <Button
+          onClick={() =>
+            buildSessionUrl({ lineItems, selectedDuration }).then((url) => {
+              console.log(url);
+              //window.location.href = url;
+            })
+          }
+          loading={loading}
+        >
+          Louer
+        </Button>
       </div>
     </div>
   );

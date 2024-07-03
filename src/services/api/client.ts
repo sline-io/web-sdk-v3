@@ -24,7 +24,19 @@ export const apiClient = {
       }
 
       fetch(url, options)
-        .then((response) => response.json().then(resolve).catch(reject))
+        .then(async (response) => {
+          try {
+            const data = await response.json();
+
+            if (String(response.status).startsWith("2")) {
+              resolve(data);
+            } else {
+              reject(data);
+            }
+          } catch (error) {
+            reject(error);
+          }
+        })
         .catch(reject);
     }),
 
@@ -46,7 +58,19 @@ export const apiClient = {
       }
 
       fetch(url, options)
-        .then((response) => response.json().then(resolve).catch(reject))
+        .then(async (response) => {
+          try {
+            const data = await response.json();
+
+            if (String(response.status).startsWith("2")) {
+              resolve(data);
+            } else {
+              reject(data);
+            }
+          } catch (error) {
+            reject(error);
+          }
+        })
         .catch(reject);
     }),
 };

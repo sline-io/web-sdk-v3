@@ -2,8 +2,7 @@ import ReactDOM from "react-dom/client";
 import { CheckoutBadge, CheckoutBadgeProps } from "./components";
 import React from "react";
 import { initializeApiClient } from "services/api";
-
-let initialized = false;
+import config from "config";
 
 type InitializeOptions = {
   clientId: string;
@@ -11,12 +10,14 @@ type InitializeOptions = {
   test?: boolean;
 };
 
+let initialized = false;
 export const initialize = ({
   clientId,
   clientSecret,
   test = false,
 }: InitializeOptions) => {
   initializeApiClient({ clientId, clientSecret, test });
+  config.test = test;
   initialized = true;
 };
 

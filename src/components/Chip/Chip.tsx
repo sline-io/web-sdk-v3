@@ -1,14 +1,26 @@
 import React, { useMemo } from "react";
 import styles from "./Chip.module.css";
 
-interface Props {
+interface Props
+  extends Omit<
+    React.DetailedHTMLProps<
+      React.InputHTMLAttributes<HTMLInputElement>,
+      HTMLInputElement
+    >,
+    "type" | "id" | "name" | "value" | "onChange" | "hidden"
+  > {
   value: string;
   label: string;
-  checked: boolean;
   onChange: (checked: boolean) => void;
 }
 
-export const Chip: React.FC<Props> = ({ value, checked, label, onChange }) => {
+export const Chip: React.FC<Props> = ({
+  value,
+  checked,
+  label,
+  onChange,
+  ...props
+}) => {
   const name = useMemo(() => String(Math.round(Math.random() * 1000000)), []);
 
   return (
@@ -21,6 +33,7 @@ export const Chip: React.FC<Props> = ({ value, checked, label, onChange }) => {
         checked={checked}
         onChange={(event) => onChange(event.target.checked)}
         hidden
+        {...props}
       />
       <label className={styles.label} htmlFor={`${name}-${value}`}>
         {label}

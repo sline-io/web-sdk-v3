@@ -1,15 +1,27 @@
 import React from "react";
 import styles from "./Skeleton.module.css";
 
-interface Props {
+interface Props
+  extends React.DetailedHTMLProps<
+    React.HTMLAttributes<HTMLDivElement>,
+    HTMLDivElement
+  > {
   width: number;
   height: number;
   radius?: number;
 }
 
-export const Skeleton: React.FC<Props> = ({ width, height, radius = 0 }) => (
+export const Skeleton: React.FC<Props> = ({
+  width,
+  height,
+  radius = 0,
+  className,
+  style,
+  ...props
+}) => (
   <div
-    className={styles.skeleton}
-    style={{ width, height, borderRadius: radius }}
+    className={styles.skeleton + (className ? " " + className : "")}
+    style={{ width, height, borderRadius: radius, ...style }}
+    {...props}
   />
 );

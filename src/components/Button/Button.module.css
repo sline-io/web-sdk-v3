@@ -1,0 +1,12 @@
+.button {
+  background-color: #0c2a1a;
+  color: white;
+  border-radius: 4px;
+  padding: 4px 8px;
+  border: none;
+  cursor: pointer;
+}
+
+.button[data-loading] {
+  pointer-events: none;
+}
