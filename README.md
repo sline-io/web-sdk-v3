@@ -9,7 +9,7 @@
 
 ## Outputs
 
-Builds commands create some files in the `dist/` folder including:
+Build commands create some files in the `dist/` folder including:
 
 - a JS file `sline.umd.js` containing all the minified code
 - a CSS file `sline.css` containing all the minified css
