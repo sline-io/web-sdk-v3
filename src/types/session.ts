@@ -17,10 +17,10 @@ export type SessionLineItem = {
   product_url?: string;
   brand?: string;
   category_path?: string;
-  global_trade_item_number?: string;
-  manufacturer_part_number?: string;
   item_variant?: string;
   description?: string;
+  global_trade_item_number?: string;
+  manufacturer_part_number?: string;
   merchant_data?: string;
 };
 
@@ -41,7 +41,7 @@ export type SessionCustomer = {
   email?: string;
   phone?: string;
   date_of_birth?: string;
-  customer_type?: "company" | "person";
+  customer_type?: "person" | "company";
   company_name?: string;
   company_registration_id?: string;
   company_vat_id?: string;

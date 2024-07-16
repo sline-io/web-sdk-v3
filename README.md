@@ -17,3 +17,7 @@ Build commands create some files in the `dist/` folder including:
 ## Test
 
 You can run `pnpm run dev` and use the `index.html` file to test the SDK.
+
+## Documentation
+
+Documentation can be found [here](./documentation.md).

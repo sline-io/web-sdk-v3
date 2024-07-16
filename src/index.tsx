@@ -31,7 +31,7 @@ const getOrCreateRoot = (containerId: string) => {
 
   const container = document.getElementById(containerId);
 
-  if (!container) throw Error(`Container #{containerId} not found in DOM.`);
+  if (!container) throw Error(`Container '#${containerId}' not found in DOM.`);
 
   const root = ReactDOM.createRoot(container);
 
