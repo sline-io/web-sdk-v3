@@ -1,5 +1,4 @@
-let baseUrl = "https://api.prod.sline.io/v3";
-let accessToken: string | undefined;
+import config from "config";
 
 type Request = {
   url: string;
@@ -12,13 +11,13 @@ const pendingRequests: Request[] = [];
 export const apiClient = {
   get: async (path: string): Promise<unknown> =>
     new Promise((resolve, reject) => {
-      const url = baseUrl + path;
+      const url = config.apiBaseUrl + path;
       const options: RequestInit = {
         method: "GET",
-        headers: { Authorization: `Bearer ${accessToken}` },
+        headers: { Authorization: `Bearer ${config.apiToken}` },
       };
 
-      if (!accessToken) {
+      if (!config.apiToken) {
         pendingRequests.push({ url, options, resolve });
         return;
       }
@@ -42,17 +41,17 @@ export const apiClient = {
 
   post: async (path: string, data: unknown): Promise<unknown> =>
     new Promise((resolve, reject) => {
-      const url = baseUrl + path;
+      const url = config.apiBaseUrl + path;
       const options: RequestInit = {
         method: "POST",
         headers: {
-          Authorization: `Bearer ${accessToken}`,
+          Authorization: `Bearer ${config.apiToken}`,
           "Content-Type": "application/json",
         },
         body: JSON.stringify(data),
       };
 
-      if (!accessToken) {
+      if (!config.apiToken) {
         pendingRequests.push({ url, options, resolve });
         return;
       }
@@ -86,10 +85,8 @@ export const initializeApiClient = async ({
   clientSecret,
   test,
 }: ApiClientInitializeOptions) => {
-  accessToken = undefined;
-
   if (test) {
-    baseUrl = "https://api.stg.sline.io/v3";
+    config.apiBaseUrl = "https://api.stg.sline.io/v3";
   }
 
   const response = await fetch(
@@ -108,13 +105,13 @@ export const initializeApiClient = async ({
 
   if (response.status === 401) throw Error("Invalid credentials.");
 
-  accessToken = (await response.json())["access_token"];
+  config.apiToken = (await response.json())["access_token"];
 
   await Promise.all(
     pendingRequests.map(async (request) => {
       request.options.headers = {
         ...request.options.headers,
-        Authorization: `Bearer ${accessToken}`,
+        Authorization: `Bearer ${config.apiToken}`,
       };
 
       const response = await fetch(request.url, request.options);

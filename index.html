@@ -20,6 +20,7 @@
     });
 
     Sline.addCheckoutBadge("container1", {
+      retailerId: "9bdd8ff1-ce69-49fa-929a-fa358548cabd",
       lineItems: [
         {
           name: "Macbook Pro",
@@ -31,24 +32,22 @@
       ],
     });
 
-    Sline.addCheckoutBadge("container2", {
-      lineItems: [
-        {
-          name: "Iphone",
-          item_type: "physical",
-          unit_price: 99900,
-          quantity: 3,
-          rent: true,
-        },
-      ],
-    });
+    // Sline.addCheckoutBadge("container2", {
+    //   lineItems: [
+    //     {
+    //       name: "Iphone",
+    //       item_type: "physical",
+    //       unit_price: 99900,
+    //       quantity: 3,
+    //       rent: true,
+    //     },
+    //   ],
+    // });
 
     Sline.setCustomer({
       gender: "male",
       first_name: "Antoine",
       last_name: "Sion",
     });
-
-    setTimeout(() => Sline.removeCheckoutBadge("container2"), 5000);
   </script>
 </html>

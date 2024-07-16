@@ -7,15 +7,20 @@ export const useCheckoutUrl = () => {
 
   const buildSessionUrl = useCallback(
     async ({
+      retailerId,
       lineItems,
       selectedDuration,
-    }: Pick<SessionCreateData, "lineItems" | "selectedDuration">) => {
+    }: Pick<
+      SessionCreateData,
+      "retailerId" | "lineItems" | "selectedDuration"
+    >) => {
       setLoading(true);
 
       try {
         const { customer, shippingAddress, billingAddress } = config;
 
         const session = await createSession({
+          retailerId,
           lineItems,
           selectedDuration,
           customer,
@@ -28,7 +33,7 @@ export const useCheckoutUrl = () => {
           : "https://subscribe.sline.io";
 
         setLoading(false);
-        return `${baseUrl}/${session.id}`;
+        return `${baseUrl}/${session.id}?retailerApiKey=${config.apiToken}`;
       } catch (error) {
         setLoading(false);
         throw error;

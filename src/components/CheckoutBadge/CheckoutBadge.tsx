@@ -9,10 +9,11 @@ import { Button } from "../Button";
 import { formatPrice } from "utils";
 
 export interface Props {
+  retailerId: string;
   lineItems: SessionLineItem[];
 }
 
-export const CheckoutBadge: React.FC<Props> = ({ lineItems }) => {
+export const CheckoutBadge: React.FC<Props> = ({ retailerId, lineItems }) => {
   const checkoutPlans = useCheckoutPlans(lineItems);
   const [selectedDuration, setSelectedDuration] = useState<number>();
   const { buildSessionUrl, loading } = useCheckoutUrl();
@@ -80,10 +81,11 @@ export const CheckoutBadge: React.FC<Props> = ({ lineItems }) => {
 
         <Button
           onClick={() =>
-            buildSessionUrl({ lineItems, selectedDuration }).then((url) => {
-              console.log(url);
-              //window.location.href = url;
-            })
+            buildSessionUrl({ retailerId, lineItems, selectedDuration }).then(
+              (url) => {
+                window.location.href = url;
+              }
+            )
           }
           loading={loading}
         >
