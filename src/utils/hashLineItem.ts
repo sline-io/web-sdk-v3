@@ -1,5 +1,5 @@
 import hash from "object-hash";
-import { SessionLineItem } from "types";
+import { LineItem } from "types";
 
 export const hashLineItem = ({
   unit_price,
@@ -8,8 +8,9 @@ export const hashLineItem = ({
   product_value,
   coverage_configuration_code,
   pricing_configuration_code,
-}: SessionLineItem) =>
+}: LineItem) =>
   hash({
+    // ? only fields that have an impact on plans
     unit_price,
     quantity,
     msrp,

@@ -1,7 +1,8 @@
 import React from "react";
-import { SessionLineItem } from "types";
-export interface Props {
+import { LineItem } from "types";
+interface Props {
     retailerId: string;
-    lineItems: SessionLineItem[];
+    lineItems: LineItem[];
 }
 export declare const CheckoutBadge: React.FC<Props>;
+export {};

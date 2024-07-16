@@ -1,6 +1,6 @@
 import React, { useMemo, useState } from "react";
 import styles from "./CheckoutBadge.module.css";
-import { SessionLineItem } from "types";
+import { LineItem } from "types";
 import { useCheckoutPlans, useCheckoutUrl } from "hooks";
 import { SlineLogo } from "../SlineLogo";
 import { Skeleton } from "../Skeleton";
@@ -8,9 +8,9 @@ import { Chip } from "../Chip";
 import { Button } from "../Button";
 import { formatPrice } from "utils";
 
-export interface Props {
+interface Props {
   retailerId: string;
-  lineItems: SessionLineItem[];
+  lineItems: LineItem[];
 }
 
 export const CheckoutBadge: React.FC<Props> = ({ retailerId, lineItems }) => {

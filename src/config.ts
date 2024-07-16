@@ -1,4 +1,4 @@
-import { SessionAddress, SessionCustomer } from "types";
+import { Address, Customer } from "types";
 
 export default {
   test: false,
@@ -11,7 +11,7 @@ export default {
   test: boolean;
   apiBaseUrl: string;
   apiToken: string | undefined;
-  customer?: SessionCustomer;
-  shippingAddress?: SessionAddress;
-  billingAddress?: SessionAddress;
+  customer?: Customer;
+  shippingAddress?: Address;
+  billingAddress?: Address;
 };

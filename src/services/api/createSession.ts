@@ -1,18 +1,13 @@
-import {
-  SessionLineItem,
-  Session,
-  SessionCustomer,
-  SessionAddress,
-} from "types";
+import { LineItem, Session, Customer, Address } from "types";
 import { apiClient } from "./client";
 
 export interface SessionCreateData {
   retailerId: string;
-  lineItems: SessionLineItem[];
+  lineItems: LineItem[];
   selectedDuration: number | undefined;
-  customer?: SessionCustomer;
-  shippingAddress?: SessionAddress;
-  billingAddress?: SessionAddress;
+  customer?: Customer;
+  shippingAddress?: Address;
+  billingAddress?: Address;
 }
 
 export const createSession = async ({

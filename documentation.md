@@ -167,11 +167,12 @@ Retrouver tous les champs disponibles pour l'adresse de facturation (`billingAdd
 | `unit_price`                  | `number`                                            | Prix du produit en centimes (hors taxe)                      | Oui ⚠️      |
 | `quantity`                    | `number`                                            | Quantité du produit                                          | Oui ⚠️      |
 | `rent`                        | `boolean`                                           | Le produit est élligible à la location                       | Oui ⚠️      |
-| `name`                        | `string`                                            | Nom du produit                                               | Non         |
 | `msrp`                        | `number`                                            | Le prix recommandé par le fabricant d'un produit en centimes | Non         |
 | `product_value`               | `number`                                            | Valeur du produit en centimes                                | Non         |
 | `coverage_configuration_code` | `string`                                            | Code de configuration des garanties (cf. back-office)        | Non         |
 | `pricing_configuration_code`  | `string`                                            | Code de configuration des prix (cf. back-office)             | Non         |
+| `name`                        | `string`                                            | Nom du produit                                               | Non         |
+| `reference`                   | `string`                                            | Référence du produit                                         | Non         |
 | `image`                       | `string`                                            | URL de l'image du produit                                    | Non         |
 | `product_url`                 | `string`                                            | URL de la fiche produit                                      | Non         |
 | `brand`                       | `string`                                            | Marque du produit                                            | Non         |

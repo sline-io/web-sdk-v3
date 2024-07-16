@@ -1,0 +1,41 @@
+import { z } from "zod";
+export declare const addressSchema: z.ZodObject<{
+    street_address: z.ZodOptional<z.ZodString>;
+    street_address_2: z.ZodOptional<z.ZodString>;
+    zip_code: z.ZodOptional<z.ZodString>;
+    city: z.ZodOptional<z.ZodString>;
+    region: z.ZodOptional<z.ZodString>;
+    country: z.ZodOptional<z.ZodString>;
+    gender: z.ZodOptional<z.ZodEnum<["male", "female"]>>;
+    first_name: z.ZodOptional<z.ZodString>;
+    last_name: z.ZodOptional<z.ZodString>;
+    email: z.ZodOptional<z.ZodString>;
+    phone: z.ZodOptional<z.ZodString>;
+    company_name: z.ZodOptional<z.ZodString>;
+}, "strip", z.ZodTypeAny, {
+    street_address?: string | undefined;
+    street_address_2?: string | undefined;
+    zip_code?: string | undefined;
+    city?: string | undefined;
+    region?: string | undefined;
+    country?: string | undefined;
+    gender?: "male" | "female" | undefined;
+    first_name?: string | undefined;
+    last_name?: string | undefined;
+    email?: string | undefined;
+    phone?: string | undefined;
+    company_name?: string | undefined;
+}, {
+    street_address?: string | undefined;
+    street_address_2?: string | undefined;
+    zip_code?: string | undefined;
+    city?: string | undefined;
+    region?: string | undefined;
+    country?: string | undefined;
+    gender?: "male" | "female" | undefined;
+    first_name?: string | undefined;
+    last_name?: string | undefined;
+    email?: string | undefined;
+    phone?: string | undefined;
+    company_name?: string | undefined;
+}>;

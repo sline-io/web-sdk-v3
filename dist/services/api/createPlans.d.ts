@@ -1,2 +1,2 @@
-import { SessionLineItem, SessionLineItemWithPlans } from "types";
-export declare const createPlans: (lineItems: SessionLineItem[]) => Promise<SessionLineItemWithPlans[]>;
+import { LineItem, LineItemWithPlans } from "types";
+export declare const createPlans: (lineItems: LineItem[]) => Promise<LineItemWithPlans[]>;

@@ -1,13 +1,13 @@
 import { useEffect, useState } from "react";
 import { createPlans } from "services/api";
-import { SessionLineItem, SessionLineItemWithPlans } from "types";
+import { LineItem, LineItemWithPlans } from "types";
 import { hashLineItem } from "utils";
 
-const lineItemWithPlansByHash: Record<string, SessionLineItemWithPlans> = {};
+const lineItemWithPlansByHash: Record<string, LineItemWithPlans> = {};
 
 type LineItemsPlansRequest = {
-  lineItems: SessionLineItem[];
-  resolve: (lineItemsWithPlans: SessionLineItemWithPlans[]) => void;
+  lineItems: LineItem[];
+  resolve: (lineItemsWithPlans: LineItemWithPlans[]) => void;
 };
 const pendingLineItemsPlansRequest: LineItemsPlansRequest[] = [];
 let handlePendingLineItemsWithPlansTimeout: number | undefined;
@@ -38,8 +38,8 @@ const handlePendingLineItemsWithPlans = async () => {
 };
 
 const createLineItemsPlans = (
-  lineItems: SessionLineItem[]
-): Promise<SessionLineItemWithPlans[]> =>
+  lineItems: LineItem[]
+): Promise<LineItemWithPlans[]> =>
   new Promise((resolve) => {
     pendingLineItemsPlansRequest.push({ lineItems, resolve });
 
@@ -51,7 +51,7 @@ const createLineItemsPlans = (
     }
   });
 
-const buildCheckoutPlans = (lineItemsWithPlans: SessionLineItemWithPlans[]) => {
+const buildCheckoutPlans = (lineItemsWithPlans: LineItemWithPlans[]) => {
   const checkoutPlans: CheckoutPlan[] = [];
 
   lineItemsWithPlans.forEach((lineItemWithPlans) => {
@@ -90,7 +90,7 @@ type CheckoutPlan = {
   otherInstalmentWithTax: number;
 };
 
-export const useCheckoutPlans = (lineItems: SessionLineItem[]) => {
+export const useCheckoutPlans = (lineItems: LineItem[]) => {
   const [checkoutPlans, setCheckoutPlans] = useState<CheckoutPlan[]>();
 
   useEffect(() => {
