@@ -41,6 +41,7 @@ Puis, utiliser la méthode `addCheckoutBadge` :
 
 ```js
 Sline.addCheckoutBadge("container", {
+  retailerId: "{{ YOUR_RETAILER_ID }}",
   lineItems: [
     {
       name: "Macbook Pro",
